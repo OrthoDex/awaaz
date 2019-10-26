@@ -59,6 +59,9 @@ export default class TodoInput extends React.Component {
               <input className="input" placeholder="Add a todo" value={this.state.textboxValue} onChange={this.handleTextboxValueChange} onKeyPress={e => {
                   this.handleTextboxKeyPress(e, addTodo);
                 }}/>
+              <input className="input" placeholder="Add a todo" value={this.state.textboxValue} onChange={this.handleTextboxValueChange} onKeyPress={e => {
+                  this.handleTextboxKeyPress(e, addTodo);
+                }}/>
               <br />
             </div>
           )
