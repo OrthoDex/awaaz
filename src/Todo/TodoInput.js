@@ -13,14 +13,17 @@ export default class TodoInput extends React.Component {
       record: false,
       recordedBlob: new Blob(),
       recordComplete: false,
-      audioFile: {}
+      audioFileSrc: {}
     };
     this.onStop = this.onStop.bind(this);
   }
 
   startRecording = () => {
     this.setState({
-      record: true
+      record: true,
+      recordComplete: false,
+      recordedBlob: new Blob(),
+      audioFileSrc: ""
     });
   };
 
@@ -30,9 +33,9 @@ export default class TodoInput extends React.Component {
     });
   };
 
-  // onData(recordedBlob) {
-  //   console.log('chunk of real-time data is: ', recordedBlob);
-  // }
+  onData(recordedBlob) {
+    console.log("chunk of real-time data is: ", recordedBlob);
+  }
 
   onStop = recordedBlob => {
     this.setState({
@@ -101,7 +104,7 @@ export default class TodoInput extends React.Component {
                 // pause={boolean}          // defaults -> false.  Available in React-Mic-Plus upgrade only
                 // className={string}       // provide css class name
                 onStop={this.onStop} // callback to execute when audio stops recording
-                // onData={this.onData}        // callback to execute when chunk of audio data is available
+                onData={this.onData} // callback to execute when chunk of audio data is available
                 strokeColor="#000000" // sound wave color
                 backgroundColor="#337ab7" // background color
               />
