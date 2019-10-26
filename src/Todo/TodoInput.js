@@ -27,8 +27,7 @@ export default class TodoInput extends React.Component {
 
   stopRecording = () => {
     this.setState({
-      record: false,
-      recordComplete: true
+      record: false
     });
   };
 
@@ -44,7 +43,8 @@ export default class TodoInput extends React.Component {
           src: recordedBlob.blobURL,
           title: "Audio recording"
         }
-      ]
+      ],
+      recordComplete: true
     });
     console.log("recordedBlob is: ", recordedBlob);
   };
