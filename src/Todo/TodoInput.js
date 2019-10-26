@@ -13,7 +13,8 @@ export default class TodoInput extends React.Component {
     this.state = {
       record: false,
       recordedBlob: new Blob(),
-      recordComplete: false
+      recordComplete: false,
+      audioFile: []
     };
     this.onStop = this.onStop.bind(this);
   }
@@ -36,7 +37,15 @@ export default class TodoInput extends React.Component {
   // }
 
   onStop = recordedBlob => {
-    this.setState({ recordedBlob });
+    this.setState({
+      recordedBlob,
+      audioFile: [
+        {
+          src: recordedBlob.blobURL,
+          title: "Audio recording"
+        }
+      ]
+    });
     console.log("recordedBlob is: ", recordedBlob);
   };
 
@@ -100,17 +109,10 @@ export default class TodoInput extends React.Component {
                 onStop={this.onStop} // callback to execute when audio stops recording
                 // onData={this.onData}        // callback to execute when chunk of audio data is available
                 strokeColor="#000000" // sound wave color
-                backgroundColor="#FF4081" // background color
+                backgroundColor="#337ab7" // background color
               />
               {this.state.recordComplete ? (
-                <AudioPlayer
-                  audioFiles={[
-                    {
-                      src: this.state.recordedBlob.blobUrl,
-                      title: "Audio recording"
-                    }
-                  ]}
-                />
+                <AudioPlayer audioFiles={this.state.audioFile} />
               ) : (
                 ""
               )}
