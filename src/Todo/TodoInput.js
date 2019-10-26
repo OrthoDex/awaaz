@@ -5,7 +5,6 @@ import "./Todo.css";
 import { QUERY_TODO, MUTATION_TODO_ADD } from "./graphQueries/todoQueries";
 
 import { ReactMic } from "react-mic";
-import AudioPlayer from "react-modular-audio-player";
 
 export default class TodoInput extends React.Component {
   constructor() {
@@ -14,7 +13,7 @@ export default class TodoInput extends React.Component {
       record: false,
       recordedBlob: new Blob(),
       recordComplete: false,
-      audioFile: []
+      audioFile: {}
     };
     this.onStop = this.onStop.bind(this);
   }
@@ -38,12 +37,7 @@ export default class TodoInput extends React.Component {
   onStop = recordedBlob => {
     this.setState({
       recordedBlob,
-      audioFile: [
-        {
-          src: recordedBlob.blobURL,
-          title: "Audio recording"
-        }
-      ],
+      audioFileSrc: recordedBlob.blobURL,
       recordComplete: true
     });
     console.log("recordedBlob is: ", recordedBlob);
@@ -112,7 +106,7 @@ export default class TodoInput extends React.Component {
                 backgroundColor="#337ab7" // background color
               />
               {this.state.recordComplete ? (
-                <AudioPlayer audioFiles={this.state.audioFile} />
+                <audio controls src={this.state.audioFileSrc} />
               ) : (
                 ""
               )}
