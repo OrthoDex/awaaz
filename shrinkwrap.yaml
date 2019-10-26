@@ -9,6 +9,7 @@ dependencies:
   react-apollo: 2.5.8
   react-bootstrap: 0.31.5
   react-dom: 15.6.2
+  react-mic: 12.4.1
   react-router: 4.3.1
   react-router-dom: 4.3.1
 devDependencies:
@@ -5546,10 +5547,29 @@ packages:
       react: ^15.6.2
     resolution:
       integrity: sha1-Qc+t9pO3V/rycIRDodH9WgK+9zA=
+  /react-ga/2.7.0/prop-types@15.7.2:
+    dependencies:
+      prop-types: 15.7.2
+    dev: false
+    id: registry.npmjs.org/react-ga/2.7.0
+    peerDependencies:
+      prop-types: ^15.6.0
+      react: ^15.6.2 || ^16.0
+    resolution:
+      integrity: sha512-AjC7UOZMvygrWTc2hKxTDvlMXEtbmA0IgJjmkhgmQQ3RkXrWR11xEagLGFGaNyaPnmg24oaIiaNPnEoftUhfXA==
   /react-is/16.11.0:
     dev: false
     resolution:
       integrity: sha512-gbBVYR2p8mnriqAwWx9LbuUrShnAuSCNnuPGyc7GJrMVQtPDAh8iLpv7FRuMPFb56KkaVZIYSz1PrjI9q0QPCw==
+  /react-mic/12.4.1:
+    dependencies:
+      prop-types: 15.7.2
+      react-ga: /react-ga/2.7.0/prop-types@15.7.2
+    dev: false
+    peerDependencies:
+      react: 16.x
+    resolution:
+      integrity: sha512-l580F9Mv6NRslSQj+80azx2rr/5OjWISEsjXx2GXBXcLvnT9vGeSYHzFVwDhGBjo/cj25AzXDg+rSp4Bz/qS2w==
   /react-overlays/0.7.4:
     dependencies:
       classnames: 2.2.6
@@ -7208,6 +7228,7 @@ specifiers:
   react-apollo: ^2.1.6
   react-bootstrap: ^0.31.0
   react-dom: ^15.5.4
+  react-mic: 12.4.1
   react-router: ^4.1.1
   react-router-dom: ^4.1.1
   react-scripts: 0.9.5
