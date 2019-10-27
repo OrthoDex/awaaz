@@ -1,6 +1,5 @@
 import React from "react";
 import { Mutation } from "react-apollo";
-import "./Todo.css";
 import { speechUrl } from "../constants";
 
 import { QUERY_TODO, MUTATION_TODO_ADD } from "./graphQueries/todoQueries";
@@ -45,7 +44,8 @@ export default class TodoInput extends React.Component {
     this.setState({
       recordedBlob,
       audioFileSrc: recordedBlob.blobURL,
-      recordComplete: true
+      recordComplete: true,
+      loading: true
     });
     console.log("recordedBlob is: ", recordedBlob);
     const blob = recordedBlob.blob;
@@ -111,15 +111,15 @@ export default class TodoInput extends React.Component {
       <Mutation mutation={MUTATION_TODO_ADD}>
         {(addTodo, { data, loading, called, error }) => {
           return (
-            <div className="parentContainer">
-              {/* <input className="input" placeholder="Add a todo" value={this.state.textboxValue} onChange={this.handleTextboxValueChange} onKeyPress={e => {
-                  this.handleTextboxKeyPress(e, addTodo);
-                }}/> */}
-              <div>
-                <h1>Speech stats</h1>
-                <p>{JSON.stringify(this.state.speechStats)}</p>
-              </div>
+            <div className="container">
+              {this.state.loading || loading ? (
+                <div class="spinner-border" size="small" />
+              ) : (
+                <p></p>
+              )}
+
               <button
+                className="btn btn-primary"
                 onClick={
                   this.state.record ? this.stopRecording : this.startRecording
                 }
@@ -132,21 +132,23 @@ export default class TodoInput extends React.Component {
               ) : (
                 <p></p>
               )}
-              <ReactMic
-                record={this.state.record} // defaults -> false.  Set to true to begin recording
-                // pause={boolean}          // defaults -> false.  Available in React-Mic-Plus upgrade only
-                // className={string}       // provide css class name
-                onStop={blob => this.onStop(blob, addTodo)} // callback to execute when audio stops recording
-                onData={this.onData} // callback to execute when chunk of audio data is available
-                strokeColor="#000000" // sound wave color
-                backgroundColor="#337ab7" // background color
-              />
-              {this.state.recordComplete ? (
-                <audio controls src={this.state.audioFileSrc} />
-              ) : (
-                ""
-              )}
-              <br />
+              <div className="container">
+                <ReactMic
+                  record={this.state.record} // defaults -> false.  Set to true to begin recording
+                  // pause={boolean}          // defaults -> false.  Available in React-Mic-Plus upgrade only
+                  // className={string}       // provide css class name
+                  onStop={blob => this.onStop(blob, addTodo)} // callback to execute when audio stops recording
+                  onData={this.onData} // callback to execute when chunk of audio data is available
+                  strokeColor="#000000" // sound wave color
+                  backgroundColor="#337ab7" // background color
+                />
+                {this.state.recordComplete ? (
+                  <audio controls src={this.state.audioFileSrc} />
+                ) : (
+                  ""
+                )}
+                <br />
+              </div>
             </div>
           );
         }}

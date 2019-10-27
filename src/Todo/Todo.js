@@ -1,6 +1,5 @@
 import React from "react";
 import { Mutation } from "react-apollo";
-import "./Todo.css";
 
 import {
   QUERY_TODO,
@@ -50,13 +49,8 @@ const Todo = ({ todo }) => (
   <Mutation mutation={MUTATION_TODO_UPDATE}>
     {updateTodo => {
       return (
-        <div className="parentContainer">
-          <li
-            className="todoItem"
-            onClick={e => {
-              handleTodoToggle(updateTodo, todo);
-            }}
-          >
+        <div className="card">
+          <div className="card-body">
             <table>
               <tr>
                 <td>Created: {todo.created_at}</td>
@@ -78,22 +72,25 @@ const Todo = ({ todo }) => (
                 <td>{todo.speech_stats.result.spectral_rolloff}</td>
               </tr>
             </table>
-            <table>
-              {todo.speech_stats.result.classification.map((value, index) => {
-                <tr>
-                  <th>Prediction {index}</th>
-                  <td>
-                    <p>Name: {value.name}</p>
-                    <p>Name: {value.score}</p>
-                  </td>
-                </tr>;
-              })}
-            </table>
+          </div>
+
+          <div className="card-body">
+            {todo.speech_stats.result.classification.map((value, index) => {
+              return (
+                <div key={index}>
+                  <h3>Prediction {index}</h3>
+                  <p className="alert alert-danger">Name: {value.name}</p>
+                  <p className="alert alert-danger">Name: {value.score}</p>
+                </div>
+              );
+            })}
+          </div>
+          <div className="comtainer">
             <Mutation mutation={MUTATION_TODO_DELETE}>
               {deleteTodo => {
                 return (
-                  <label
-                    className="deleteLabel"
+                  <button
+                    className="btn btn-danger"
                     onClick={e => {
                       e.preventDefault();
                       e.stopPropagation();
@@ -101,11 +98,11 @@ const Todo = ({ todo }) => (
                     }}
                   >
                     Delete
-                  </label>
+                  </button>
                 );
               }}
             </Mutation>
-          </li>
+          </div>
         </div>
       );
     }}

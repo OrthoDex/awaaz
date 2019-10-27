@@ -1,36 +1,30 @@
-import React from 'react';
+import React from "react";
 import { Query } from "react-apollo";
-import Todo from './Todo';
-import {
-  QUERY_TODO,
-} from './graphQueries/todoQueries';
+import Todo from "./Todo";
+import { QUERY_TODO } from "./graphQueries/todoQueries";
 
 const TodoList = () => (
   <Query query={QUERY_TODO}>
-    {({loading, error, data}) => {
+    {({ loading, error, data }) => {
       if (loading) {
-        return (
-          <div>Loading. Please wait...</div>
-        );
+        return <div>Loading. Please wait...</div>;
       }
       if (error) {
-        return (
-          <div>{""}</div>
-        );
+        return <div>{""}</div>;
       }
       return (
-        <div className="parentContainer">
-          <ul className="todoList">
-          {
-            data.todo.map((todo, index) => {
+        <div className="container">
+          <ul className="list-group">
+            {data.todo.map((todo, index) => {
               return (
-                <Todo key={index} todo={todo} />
+                <li className="list-group-item">
+                  <Todo key={index} todo={todo} />
+                </li>
               );
-            })
-          }
+            })}
           </ul>
         </div>
-      )
+      );
     }}
   </Query>
 );
