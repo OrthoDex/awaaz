@@ -45,7 +45,8 @@ export default class TodoInput extends React.Component {
     this.setState({
       recordedBlob,
       audioFileSrc: recordedBlob.blobURL,
-      recordComplete: true
+      recordComplete: true,
+      loading: true
     });
     console.log("recordedBlob is: ", recordedBlob);
     const blob = recordedBlob.blob;
@@ -112,6 +113,7 @@ export default class TodoInput extends React.Component {
         {(addTodo, { data, loading, called, error }) => {
           return (
             <div className="parentContainer">
+              <p>{this.state.loading ? "Loading": ""}</p>
               {/* <input className="input" placeholder="Add a todo" value={this.state.textboxValue} onChange={this.handleTextboxValueChange} onKeyPress={e => {
                   this.handleTextboxKeyPress(e, addTodo);
                 }}/> */}
