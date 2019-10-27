@@ -57,37 +57,35 @@ export default class TodoInput extends React.Component {
       .then(res => res.json())
       .then(result => {
         const newTask = this.state.textboxValue;
-      const userId = this.props.userId;
-      addTodo({
-        variables: {
-          objects: [
-            {
-              task: newTask,
-              user_id: userId,
-              completed: false,
-              speech_stats: this.state.speechStats
-            }
-          ]
-        },
-        update: (store, { data: { insert_todo } }) => {
-          const data = store.readQuery({ query: QUERY_TODO });
-          const insertedTodo = insert_todo.returning;
-          data.todo.splice(0, 0, insertedTodo[0]);
-          store.writeQuery({
-            query: QUERY_TODO,
-            data
-          });
-          this.setState({
-            textboxValue: ""
-          });
-        }
-      });
-    }
-        this.setState({
-          textboxValue: `Memo ${new Date()}`,
-          speechStats: result.result
+        const userId = this.props.userId;
+        addTodo({
+          variables: {
+            objects: [
+              {
+                task: newTask,
+                user_id: userId,
+                completed: false,
+                speech_stats: result
+              }
+            ]
+          },
+          update: (store, { data: { insert_todo } }) => {
+            const data = store.readQuery({ query: QUERY_TODO });
+            const insertedTodo = insert_todo.returning;
+            data.todo.splice(0, 0, insertedTodo[0]);
+            store.writeQuery({
+              query: QUERY_TODO,
+              data
+            });
+            this.setState({
+              record: true,
+              recordComplete: false,
+              recordedBlob: new Blob(),
+              audioFileSrc: "",
+              speechStats: {}
+            });
+          }
         });
-        handleTextboxKeyPress({ key: "Enter" }, addTodo);
       })
       .catch(err => {
         this.setState({
@@ -103,10 +101,10 @@ export default class TodoInput extends React.Component {
     });
   };
 
-  handleTextboxKeyPress = (e, addTodo) => {
-    if (e.key === "Enter") {
-      fillData(addTodo)
-  };
+  // handleTextboxKeyPress = (e, addTodo) => {
+  //   if (e.key === "Enter") {
+  //     fillData(addTodo)
+  // };
 
   render() {
     return (
