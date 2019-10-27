@@ -52,7 +52,7 @@ export default class TodoInput extends React.Component {
     fetch(speechUrl, {
       method: "POST",
       body: blob,
-      headers: { "x-user-id": localStorage.getItem("auth0:id_token") }
+      headers: { "x-user-id": localStorage.getItem("auth0:id_token:sub") }
     })
       .then(res => res.json())
       .then(result => {
@@ -127,6 +127,11 @@ export default class TodoInput extends React.Component {
                 Toggle Recording
               </button>
               <p>{this.state.record ? "Recording!" : "Not Recording"}</p>
+              {error || this.state.errorMessage.length !== 0 ? (
+                <p>{error || this.state.errorMessage}</p>
+              ) : (
+                <p></p>
+              )}
               <ReactMic
                 record={this.state.record} // defaults -> false.  Set to true to begin recording
                 // pause={boolean}          // defaults -> false.  Available in React-Mic-Plus upgrade only
