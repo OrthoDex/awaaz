@@ -118,7 +118,7 @@ export default class TodoInput extends React.Component {
                 }}/> */}
               <div>
                 <h1>Speech stats</h1>
-                <p>{this.state.speechStats}</p>
+                <p>{JSON.stringify(this.state.speechStats)}</p>
               </div>
               <button
                 onClick={
