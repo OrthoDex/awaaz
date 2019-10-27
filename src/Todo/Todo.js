@@ -49,7 +49,7 @@ const Todo = ({ todo }) => (
   <Mutation mutation={MUTATION_TODO_UPDATE}>
     {updateTodo => {
       return (
-        <div className="card">
+        <div className="card shadow-sm p-3 mb-5 bg-white rounded">
           <div className="card-body">
             <table>
               <tr>
@@ -79,8 +79,24 @@ const Todo = ({ todo }) => (
               return (
                 <div key={index}>
                   <h3>Prediction {index}</h3>
-                  <p className="alert alert-danger">Name: {value.name}</p>
-                  <p className="alert alert-danger">Name: {value.score}</p>
+                  <p
+                    className={
+                      value.score > 0.6
+                        ? "alert alert-danger"
+                        : "alert alert-success"
+                    }
+                  >
+                    Speech Impediment Chance: {value.name}
+                  </p>
+                  <p
+                    className={
+                      value.score > 0.6
+                        ? "alert alert-danger"
+                        : "alert alert-success"
+                    }
+                  >
+                    Score: {value.score}
+                  </p>
                 </div>
               );
             })}

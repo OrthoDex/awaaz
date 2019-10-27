@@ -132,7 +132,7 @@ export default class TodoInput extends React.Component {
               ) : (
                 <p></p>
               )}
-              <div className="container">
+              <div>
                 <ReactMic
                   record={this.state.record} // defaults -> false.  Set to true to begin recording
                   // pause={boolean}          // defaults -> false.  Available in React-Mic-Plus upgrade only
