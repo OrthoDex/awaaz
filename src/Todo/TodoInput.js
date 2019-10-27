@@ -78,8 +78,8 @@ export default class TodoInput extends React.Component {
               data
             });
             this.setState({
-              record: true,
-              recordComplete: false,
+              record: false,
+              recordComplete: true,
               recordedBlob: new Blob(),
               audioFileSrc: "",
               speechStats: {}
