@@ -7,6 +7,7 @@ const QUERY_TODO = gql`
       task
       completed
       speech_stats
+      created_at
     }
   }
 `;

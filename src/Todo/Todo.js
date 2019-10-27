@@ -59,31 +59,36 @@ const Todo = ({ todo }) => (
           >
             <table>
               <tr>
+                <td>Created: {todo.created_at}</td>
+              </tr>
+              <tr>
                 <th>MFCC</th>
-                <td>{JSON.stringify(todo.speech_stats.result.mfcc)}</td>
+                <td>{todo.speech_stats.result.mfcc}</td>
               </tr>
               <tr>
                 <th>Spectral Bandwidth</th>
-                <td>
-                  {JSON.stringify(todo.speech_stats.result.spectral_bandwidth)}
-                </td>
+                <td>{todo.speech_stats.result.spectral_bandwidth}</td>
               </tr>
               <tr>
                 <th>Spectral Centroid</th>
-                <td>
-                  {JSON.stringify(todo.speech_stats.result.spectral_centroid)}
-                </td>
+                <td>{todo.speech_stats.result.spectral_centroid}</td>
               </tr>
               <tr>
                 <th>Spectral Rolloff</th>
-                <td>
-                  {JSON.stringify(todo.speech_stats.result.spectral_rolloff)}
-                </td>
+                <td>{todo.speech_stats.result.spectral_rolloff}</td>
               </tr>
             </table>
             <table>
-              
-              </table>
+              {todo.speech_stats.result.classification.map((value, index) => {
+                <tr>
+                  <th>Prediction {index}</th>
+                  <td>
+                    <p>Name: {value.name}</p>
+                    <p>Name: {value.score}</p>
+                  </td>
+                </tr>;
+              })}
+            </table>
             <Mutation mutation={MUTATION_TODO_DELETE}>
               {deleteTodo => {
                 return (
