@@ -48,7 +48,7 @@ export default class TodoInput extends React.Component {
       recordComplete: true
     });
     console.log("recordedBlob is: ", recordedBlob);
-    const blob = new Blob(recordedBlob.blob, { type: "audio/wave" });
+    const blob = recordedBlob.blob;
     fetch(speechUrl, {
       method: "POST",
       body: blob,
