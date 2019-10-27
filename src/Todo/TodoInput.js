@@ -56,29 +56,7 @@ export default class TodoInput extends React.Component {
     })
       .then(res => res.json())
       .then(result => {
-        this.setState({
-          textboxValue: `Memo ${new Date()}`,
-          speechStats: result.result
-        });
-        this.handleTextboxKeyPress({ key: "Enter" }, addTodo);
-      })
-      .catch(err => {
-        this.setState({
-          errorMessage: err.message
-        });
-        console.error(err);
-      }); // DO other things
-  };
-
-  handleTextboxValueChange = e => {
-    this.setState({
-      textboxValue: e.target.value
-    });
-  };
-
-  handleTextboxKeyPress = (e, addTodo) => {
-    if (e.key === "Enter") {
-      const newTask = this.state.textboxValue;
+        const newTask = this.state.textboxValue;
       const userId = this.props.userId;
       addTodo({
         variables: {
@@ -105,6 +83,29 @@ export default class TodoInput extends React.Component {
         }
       });
     }
+        this.setState({
+          textboxValue: `Memo ${new Date()}`,
+          speechStats: result.result
+        });
+        handleTextboxKeyPress({ key: "Enter" }, addTodo);
+      })
+      .catch(err => {
+        this.setState({
+          errorMessage: err.message
+        });
+        console.error(err);
+      }); // DO other things
+  };
+
+  handleTextboxValueChange = e => {
+    this.setState({
+      textboxValue: e.target.value
+    });
+  };
+
+  handleTextboxKeyPress = (e, addTodo) => {
+    if (e.key === "Enter") {
+      fillData(addTodo)
   };
 
   render() {
