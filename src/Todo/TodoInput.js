@@ -15,7 +15,8 @@ export default class TodoInput extends React.Component {
       recordedBlob: new Blob(),
       recordComplete: false,
       audioFileSrc: {},
-      textboxValue: ""
+      textboxValue: "",
+      errorMessage: ""
     };
     this.onStop = this.onStop.bind(this);
   }
@@ -47,7 +48,7 @@ export default class TodoInput extends React.Component {
       recordComplete: true
     });
     console.log("recordedBlob is: ", recordedBlob);
-    const blob = new Blob(recordedBlob, { type: "audio/wave" });
+    const blob = new Blob(recordedBlob.blob, { type: "audio/wave" });
     fetch(speechUrl, {
       method: "POST",
       body: blob,
@@ -61,7 +62,12 @@ export default class TodoInput extends React.Component {
         });
         this.handleTextboxKeyPress({ key: "Enter" }, addTodo);
       })
-      .catch(err => console.error(err)); // DO other things
+      .catch(err => {
+        this.setState({
+          errorMessage: err.message
+        });
+        console.error(err);
+      }); // DO other things
   };
 
   handleTextboxValueChange = e => {
