@@ -1,6 +1,7 @@
 import React from "react";
 import { Mutation } from "react-apollo";
 import "./Todo.css";
+import { speechUrl } from "../constants";
 
 import { QUERY_TODO, MUTATION_TODO_ADD } from "./graphQueries/todoQueries";
 
@@ -13,7 +14,8 @@ export default class TodoInput extends React.Component {
       record: false,
       recordedBlob: new Blob(),
       recordComplete: false,
-      audioFileSrc: {}
+      audioFileSrc: {},
+      textboxValue: ""
     };
     this.onStop = this.onStop.bind(this);
   }
@@ -23,7 +25,8 @@ export default class TodoInput extends React.Component {
       record: true,
       recordComplete: false,
       recordedBlob: new Blob(),
-      audioFileSrc: ""
+      audioFileSrc: "",
+      speechStats: {}
     });
   };
 
@@ -37,13 +40,28 @@ export default class TodoInput extends React.Component {
     console.log("chunk of real-time data is: ", recordedBlob);
   }
 
-  onStop = recordedBlob => {
+  onStop = (recordedBlob, addTodo) => {
     this.setState({
       recordedBlob,
       audioFileSrc: recordedBlob.blobURL,
       recordComplete: true
     });
     console.log("recordedBlob is: ", recordedBlob);
+    const blob = new Blob(recordedBlob, { type: "audio/wave" });
+    fetch(speechUrl, {
+      method: "POST",
+      body: blob,
+      headers: { "x-user-id": localStorage.getItem("auth0:id_token") }
+    })
+      .then(res => res.json())
+      .then(result => {
+        this.setState({
+          textboxValue: `Memo ${new Date()}`,
+          speechStats: result.result
+        });
+        this.handleTextboxKeyPress({ key: "Enter" }, addTodo);
+      })
+      .catch(err => console.error(err)); // DO other things
   };
 
   handleTextboxValueChange = e => {
@@ -62,7 +80,8 @@ export default class TodoInput extends React.Component {
             {
               task: newTask,
               user_id: userId,
-              completed: false
+              completed: false,
+              speech_stats: this.state.speechStats
             }
           ]
         },
@@ -103,7 +122,7 @@ export default class TodoInput extends React.Component {
                 record={this.state.record} // defaults -> false.  Set to true to begin recording
                 // pause={boolean}          // defaults -> false.  Available in React-Mic-Plus upgrade only
                 // className={string}       // provide css class name
-                onStop={this.onStop} // callback to execute when audio stops recording
+                onStop={blob => this.onStop(blob, addTodo)} // callback to execute when audio stops recording
                 onData={this.onData} // callback to execute when chunk of audio data is available
                 strokeColor="#000000" // sound wave color
                 backgroundColor="#337ab7" // background color
