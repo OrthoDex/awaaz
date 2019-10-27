@@ -2,4 +2,4 @@ export const GRAPHQL_URL =
   "https://awaaz-graphql-backend.herokuapp.com/v1/graphql";
 export const authClientId = "cP636nNwH8gvJIZoEOxHtvy0RMLn4Qi4";
 export const authDomain = "orthodex-testing.auth0.com";
-export const speechUrl = "localhost:8080/analyze";
+export const speechUrl = "http://localhost:8080/analyze";
