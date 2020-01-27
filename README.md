@@ -2,7 +2,7 @@
 
 Awaaz (आवाज़) (Hindi for 'Voice'), is a Proof of Concept (POC) made to detect and track speech impediments such as stutter and aphasia.
 
-This project is a Work in Progress as I take it through the NSF I-Corps Bootcamp and future programs. Check back or get in touch if you are interested in collaborating!
+This project is a Work in Progress as I take it through the NSF I-Corps Bootcamp and future programs. Check back or get in touch if you are interested in collaborating! The backend ML pipeline is at https://github.com/OrthoDex/awaaz-backend
 
 ## Inspiration
 
